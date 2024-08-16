@@ -5,6 +5,7 @@ import { ProductModel } from "../daos/mongodb/models/product.model.js";
 import { validate } from "../middlewares/validation.middleware.js";
 import { cartDto } from "../dtos/cart.dto.js";
 import { uuid } from "uuidv4";
+import passport from "passport";
 
 const router = Router();
 
@@ -12,7 +13,7 @@ router.get("/", controller.getAll);
 
 router.get("/:id", controller.getById); 
 
-router.post("/", validate(cartDto), controller.create); 
+router.post("/", passport.authenticate('jwt', {session: false}), validate(cartDto), controller.create); 
 
 router.put("/:id", controller.update);
 
