@@ -131,3 +131,49 @@ export const addProdToCart = async (req, res, next) => {
       next(error.message);
     }
   };
+
+  /* Finalización de compra
+En la función finalizarCompra, cuando actualizas el stock de los productos, deberías manejar el rollback en caso de que alguna operación falle después de haber descontado el stock, para evitar inconsistencias en la base de datos. */
+
+/* export const finalizarCompra = async (cartId, user) => {
+  const session = await CartModel.startSession();
+  session.startTransaction();
+  try {
+    const cart = await cartDao.getById(cartId).populate("products.product");
+
+    if (!cart) return null;
+
+    for (let item of cart.products) {
+      if (item.product.stock < item.quantity) {
+        throw new Error(`El producto ${item.product.name} no tiene stock suficiente`);
+      }
+    }
+
+    // Descontar stock de cada producto
+    for (let item of cart.products) {
+      await productDao.updateStock(item.product._id, item.product.stock - item.quantity);
+    }
+
+    // Crear ticket de compra
+    const ticket = await ticketDao.create({
+      code: uuid(),
+      purchase_datetime: new Date(),
+      amount: cart.products.reduce(
+        (acc, curr) => acc + curr.quantity * curr.product.price,
+        0
+      ),
+      purchaser: user._id,
+    });
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return ticket;
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    console.log(error);
+    throw error;
+  }
+};
+ */

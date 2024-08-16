@@ -15,7 +15,7 @@ export default class CartDaoMongoDB {
     try {
       return await CartModel.find({});
     } catch (error) {
-      console.log(error);
+      throw new Error("Error al obtener todos los carritos")
     }
   }
 
