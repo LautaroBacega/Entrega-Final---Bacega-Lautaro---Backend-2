@@ -1,8 +1,6 @@
 import { Router } from "express";
 import { userModel } from "../daos/mongodb/models/user.model.js";
 
-import { userDto } from "../dtos/user.dto.js";
-
 const router = Router();
 
 router.get("/", async (req, res) => {

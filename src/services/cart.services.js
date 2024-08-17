@@ -103,42 +103,6 @@ export const clearCart = async (cartId) => {
   }
 };
 
-// Entrega final
-/* export const finalizarCompra = async (cartId, user) => {
-  try {
-    const cart = await cartDao.getById(cartId).populate("products.product");
-
-    if (!cart) return null;
-
-    for (let item of cart.products) {
-      if (item.product.stock < item.quantity) {
-        throw new Error(`El producto ${item.product.name} no tiene stock suficiente`);
-      }
-    }
-
-    // Descontar stock de cada producto
-    for (let item of cart.products) {
-      await productDao.updateStock(item.product._id, item.product.stock - item.quantity);
-    }
-
-    // Crear ticket de compra
-    const ticket = await ticketDao.create({
-      code: uuid(),
-      purchase_datetime: new Date(),
-      amount: cart.products.reduce(
-        (acc, curr) => acc + curr.quantity * curr.product.price,
-        0
-      ),
-      purchaser: user._id,
-    });
-
-    return ticket;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}; */
-
 export const finalizarCompra = async (cartId, user) => {
   try {
     if (!user || !user._id) {
@@ -173,7 +137,7 @@ export const finalizarCompra = async (cartId, user) => {
 
     // Crear ticket de compra
     const ticket = await createTicket({
-      code: uuidv4(),  // Asegúrate de que uuidv4 esté importado correctamente
+      code: uuidv4(),
       purchase_datetime: new Date(),
       amount: cart.products.reduce(
         (acc, curr) => acc + curr.quantity * curr.product.price,

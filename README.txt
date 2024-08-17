@@ -1,3 +1,64 @@
+---------------------------------- Proyecto Final Backend 2 ----------------------------------
+1. Creamos un usuario user y/o admin: 
+  POST localhost:5000/api/auth/register
+
+  {
+    "first_name": "user",
+    "last_name": "user",
+    "email": "user@gmail.com",
+    "age": 23,
+    "role": "user",
+    "password": "1234"
+  }
+
+  {
+    "first_name": "admin",
+    "last_name": "admin",
+    "email": "admin@gmail.com",
+    "age": 23,
+    "role": "admin",
+    "password": "1234"
+  }
+
+2. Creamos un producto (admin): 
+  POST localhost:5000/api/products
+
+  {
+    "name": "Producto 1",
+    "description": "descripcion",
+    "price": 100,
+    "stock": 10,
+    "category": "Bicicleta",
+    "image": "a"
+  }
+
+3. Creamos un carrito: 
+  POST localhost:5000/api/carts
+
+4. Agregagamos productos al Carrito:
+  POST localhost:5000/carts/:idCart/products/:idProd
+
+5. Finalizamos la compra: 
+  POST localhost:5000/carts/:idCart/purchase
+
+  {
+    "code": "fe85ec73-7c26-446a-b57e-acb06dda7169",
+    "purchase_datetime": "2024-08-17T01:48:40.783Z",
+    "amount": 500,
+    "purchaser": "66bffeee40e9c9729264e6a2",
+    "_id": "66c0017840e9c9729264e6f3",
+    "__v": 0
+  }
+
+
+
+
+
+
+
+
+
+
 ---------------------------------- Pre-entrega Proyecto final ----------------------------------
 
 npm i express mongoose jsonwebtoken passport passport-jwt passport-local bcrypt morgan cookie-parser

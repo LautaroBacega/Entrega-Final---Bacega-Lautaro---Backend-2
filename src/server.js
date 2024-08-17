@@ -12,10 +12,6 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { initMongoDB } from './db/database.js';
 import 'dotenv/config'
 
-// entrega final
-import routes from "./routes/index.js";
-import { config } from "./config/config.js";
-
 const app = express();
 const PORT = 5000;
 

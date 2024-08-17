@@ -102,26 +102,26 @@ const initializePassport = () => {
         
 }
 
-    passport.serializeUser((user, done) => {
-        done(null, user._id);
-    });
+passport.serializeUser((user, done) => {
+    done(null, user._id);
+});
 
-    passport.deserializeUser(async (id, done) => {
-        try {
-            const user = await userModel.findById(id);
-            done(null, user);
-        } catch (error) {
-            done(error, false, { message: 'Error al deserializar usuario' });
-        }
-    });
-    
-    function cookieExtractor(req) {
-        let token = null;
-        if (req && req.cookies) {
-            token = req.cookies["token"];
-        }
-        
-        return token;
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await userModel.findById(id);
+        done(null, user);
+    } catch (error) {
+        done(error, false, { message: 'Error al deserializar usuario' });
     }
+});
+    
+function cookieExtractor(req) {
+    let token = null;
+    if (req && req.cookies) {
+        token = req.cookies["token"];
+    }
+        
+    return token;
+}
 
 export { initializePassport };  

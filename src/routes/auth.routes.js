@@ -52,9 +52,6 @@ router.get('/login-error', (req, res) => {
 router.post("/register", 
 
     validate(userDto),
-
-    // Genera el error 'Unauthorized' en POST /api/auth/register
-    // passport.authenticate("register"),
     
     async (req, res) => {
         const { first_name, last_name, email, age, role, password, cart } = req.body;
@@ -64,7 +61,6 @@ router.post("/register",
         }
 
         try {
-            // Hasheamos la contraseña
             const hashPassword = await createHash(password);
 
             const user = await userModel.create({
