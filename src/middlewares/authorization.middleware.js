@@ -1,12 +1,10 @@
-export function authorizations(roles) {
-  return async (req, res, next) => {
-    console.log(req.user); // ver el error de req.user undefined
-    if (!req.user[0]) return res.status(401).json({ message: "No autorizado" });
-
-    if (!roles.includes(req.user[0].role)) {
-      return res.status(401).json({ message: "No tienes permisos" });
+export const authorizations = (roles) => {
+  return (req, res, next) => {
+    console.log("Usuario autenticado:", req.user);
+    if (!req.user || !roles.includes(req.user.role)) {
+      console.log("Acceso denegado. Rol:", req.user ? req.user.role : "No definido");
+      return res.status(403).json({ message: "No autorizado" });
     }
-
     next();
   };
-}
+};
