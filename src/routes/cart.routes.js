@@ -28,6 +28,6 @@ router.put("/:idCart/products/:idProd", controller.updateProdQuantityToCart);
 router.delete("/clear/:idCart", controller.clearCart);
 
 // Entrega final
-router.post("/:id/purchase", controller.finalizarCompra)
+router.post("/:id/purchase",passport.authenticate('jwt', { session: false }), controller.finalizarCompra)
 
 export default router;

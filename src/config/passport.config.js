@@ -76,29 +76,30 @@ const initializePassport = () => {
             )
         );
 
-    passport.use(
-        "jwt",
-        new JWTStrategy(
-            {
-                jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-                secretOrKey: config.JWT_SECRET,
-            },
-            async (payload, done) => {
-                try {
-                    const user = await userModel.find({ email: payload.email });
-
-                    if (!user) {
-                        return done(null, false, { message: "No se encontró el usuario" });
+        passport.use(
+            "jwt",
+            new JWTStrategy(
+                {
+                    jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
+                    secretOrKey: config.JWT_SECRET,
+                },
+                async (payload, done) => {
+                    try {
+                        const user = await userModel.findOne({ email: payload.email });
+        
+                        if (!user) {
+                            return done(null, false, { message: "No se encontró el usuario" });
+                        }
+        
+                        return done(null, user);
+        
+                    } catch (error) {
+                        done(error);
                     }
-
-                    return done(null, user);
-
-                } catch (error) {
-                    done(error);
                 }
-            }
-        )
-    );
+            )
+        );
+        
 }
 
     passport.serializeUser((user, done) => {

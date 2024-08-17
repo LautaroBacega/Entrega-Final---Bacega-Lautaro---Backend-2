@@ -1,5 +1,3 @@
-// Entrega final
-
 import { ticketModel } from './models/ticket.model.js';
 
 export const createTicket = async (ticketData) => {
